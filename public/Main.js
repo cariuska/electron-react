@@ -1,4 +1,4 @@
-const { app, BrowserWindow, nativeTheme } = require('electron') 
+const { app, BrowserWindow, nativeTheme, Menu } = require('electron') 
 const path = require('path')
 
   
@@ -7,12 +7,25 @@ function createWindow () {
   const win = new BrowserWindow({ 
     width: 800, 
     height: 600, 
+    //frame: false,
     //icon: 'src/icon.ico',
     webPreferences: { 
       nodeIntegration: true,
       enableRemoteModule: true
     }
   }) 
+  
+  const template = [
+    {
+      label: 'File',
+      submenu: [
+        { role: 'quit' }
+      ]
+    }
+  ]
+  
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
   
   // Load the index.html of the app. 
   //win.loadFile('src/index.html') 
@@ -23,7 +36,7 @@ function createWindow () {
   //nativeTheme.themeSource = 'dark'
   
   // Open the DevTools. 
-  //win.webContents.openDevTools() 
+  win.webContents.openDevTools() 
 } 
   
 // This method will be called when Electron has finished 
